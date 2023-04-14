@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+```<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -44,3 +44,4 @@
     <div id="box4">box4</div>
 </body>
 </html>
+```
