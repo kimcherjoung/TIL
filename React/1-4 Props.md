@@ -76,3 +76,88 @@ MyComponent.defaultProps = {
 export default MyComponent;
 ```
 > 이렇게 하면 태그사이에 있던 "React"라는 값이 children을 이용해 가져올 수 있게 된다
+## 3.비구조화 할당 문법을 통해 props 내부 값 추출하기
+```
+import React from "react";
+
+const MyComponent = (props) => {
+  const { name, children } = props;
+  return (
+    <div>
+      안녕하세요. 제 이름은 {name}입니다. <br />
+      children 값은 {children} 입니다.
+    </div>
+  );
+};
+
+MyComponent.defaultProps = {
+  name: "기본 이름",
+};
+
+export default MyComponent;
+```
+> 이렇게 코드를 이용해 값을 바로 가져올수 있게 됩니다.
+```
+import React from "react";
+
+const MyComponent = ({ name, children }) => {
+  return (
+    <div>
+      안녕하세요. 제 이름은 {name}입니다. <br />
+      children 값은 {children} 입니다.
+    </div>
+  );
+};
+
+MyComponent.defaultProps = {
+  name: "기본 이름",
+};
+
+export default MyComponent;
+```
+> 이렇게 바로 props를 사용하면 간편화 시킬수 있게됩니다.
+## 4.propsTypes를 통한 props 검증
+>컴포넌트의 필수 props를 지정하거나 props의 타입을 지정할 때는 propTypes를 사용합니다.<br>
+>우선 코드 상단에 import로 prop-types를 불러와야 한다.
+```
+import React from "react";
+import PropTypes from 'prop-types';
+```
+>이렇게 불러왓다면
+```
+import React from "react";
+import PropTypes from 'prop-types';
+
+const MyComponent = ({ name, children }) => {
+  return (
+    <div>
+      안녕하세요. 제 이름은 {name}입니다. <br />
+      children 값은 {children} 입니다.
+    </div>
+  );
+};
+
+MyComponent.defaultProps = {
+  name: "기본 이름",
+};
+
+MyComponent.propTypes={
+  name: PropTypes.string
+}
+
+export default MyComponent;
+```
+>이렇게 defaultProps를 지정해주는겄과 비슷하게 하면 name값은 무조건 문자열 형태로 전달해야 된다는 것을 의미합니다. 
+```
+import MyComponent from "./MyComponent";
+
+const App = () => {
+  return <MyComponent name={3}>React</MyComponent>;
+};
+
+export default App;
+```
+>만약 부모컴포넌트에서 props를 문자열이 아니 이렇게 정수형으로 주게되면 실행은 되지만 console창에 오류가 뜬다.
+## 5.클래스형 컴포넌트에서 props 사용하기
+>클래스형 컴포넌트에서 props를 사용할 때는 render 함수에서 this.props를 조회하면 된다.<br>
+>그리고 defaultProps와 propsTypes는 똑같은 방법으로 설정할 수 있다
