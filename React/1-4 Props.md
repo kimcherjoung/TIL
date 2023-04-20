@@ -161,3 +161,28 @@ export default App;
 ## 5.클래스형 컴포넌트에서 props 사용하기
 >클래스형 컴포넌트에서 props를 사용할 때는 render 함수에서 this.props를 조회하면 된다.<br>
 >그리고 defaultProps와 propsTypes는 똑같은 방법으로 설정할 수 있다
+```
+
+class MyComponent extends Component {
+  render() {
+    const {name,children} = this.props;
+  return (
+    <div>
+      안녕하세요. 제 이름은 {name}입니다. <br />
+      children 값은 {children} 입니다.
+    </div>
+  );
+}
+}
+
+MyComponent.defaultProps = {
+  name: "기본 이름",
+};
+
+MyComponent.propTypes={
+  name: PropTypes.string
+}
+
+export default MyComponent;
+```
+>이렇게 render 함수에서 this.props를 조회하면 됩니다.
