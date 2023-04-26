@@ -186,3 +186,4 @@ MyComponent.propTypes={
 export default MyComponent;
 ```
 >이렇게 render 함수에서 this.props를 조회하면 됩니다.
+>그리고 defaultProps와 propTypes는 똑같은 방식으로 설정할 수 있습니다.
