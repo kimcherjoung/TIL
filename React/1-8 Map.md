@@ -30,3 +30,15 @@ arr.map(callback, [thisArg])
   - index: 현재 처리하고 있는 요소의 index 값
   - array: 현재 처리하고 있는 원본 배열
  - thisArg(선택 항목): callback 함수 내부에서 사용할 this 레퍼런스
+
+```
+var number = [1,2,3,4,5];
+
+var processed = numbers.map(function(num){
+  return num*num;
+});
+
+console.log(processed);
+```
+>이렇게 map함수를 이용해 배열 [1,2,3,4,5]의 각 요소를 제곱해서 새로운 배열을 생성했습니다.
+>결과로는 ``` [1,4,9,16,25] ``` 가 뜬다
