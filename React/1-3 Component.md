@@ -4,7 +4,8 @@
 >컴포넌트는 함수 컴포넌트와 클래스형 컴포넌트로 나뉘어 진다
 
 ## 함수형 컴포넌트
-```import logo from "./logo.svg";
+```javascript
+import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
@@ -22,7 +23,8 @@ export default App;
 > 2. 클래스형 컴포넌트보다 메모리 자원도 덜 사용한다
 > 3. state와 API의 사용이 불가능했다가 hook이란 기능을 이용해 둘다 사용할수 있게 되었다.
 
-``` import logo from "./logo.svg";
+```javascript
+import logo from "./logo.svg";
 import "./App.css";
 
 const App = () => {
@@ -38,7 +40,7 @@ export default App;
 > 이렇게 화살표 함수(arrow function)선언으로 더 간단히 사용할 수 있다.
 
 ## 클래스형 컴포넌트
-```
+```javascript
 import { Component } from "react";
 
 class App extends Component {
