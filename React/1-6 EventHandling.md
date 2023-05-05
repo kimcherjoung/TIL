@@ -28,7 +28,7 @@
 14. Transition
 >등이 있다
 
-```
+```javascript
 import { useState } from "react";
 
 const EventPractice = () => {
