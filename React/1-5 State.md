@@ -8,18 +8,18 @@
 >hooks를 사용하기전에 배열 비구조화 할당이란 것을 알아보겠나이다.
 >객체 비구조화 할당과 비슷하고 배열 안에 들어 있는 값을 쉽게 추출할 수 있게 해준다
 
-```
+```javascript
 const array = [1,2];
 const one = array[0];
 const two = array[1];
 ```
 >위 코드는 array안에 있는 값을 one과 two에 담아 주는 코드이다.
-```
+```javascript
 const array = [1,2];
 const [one, two] = array;
 ```
 >위 코드처럼 배열 비구조화 할당을 사용하면 더 간단해지고 useState 사용법을 쉽게 이해할 수 있다.
-```
+```javascript
 import { useState } from "react";
 import reportWebVitals from "./reportWebVitals";
 
