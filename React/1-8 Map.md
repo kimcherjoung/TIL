@@ -1,6 +1,6 @@
 # Map
 >웹애플리케이션을 만들다 보면 밑에처럼 반복되는 코드를 작성할 때가 있습니다.
-```
+```javascript
 import React from 'react'
 
 const IterationSample = () => {
@@ -21,7 +21,7 @@ export default IterationSample
 >map함수는 파라미터로 전달된 함수를 사용해 배열 내 각 요소를 원하는 규칙에 맞춰 변환해서 그 결과로 새로운 배열을 생성합니다.  
 
 ## 문법
-```
+```javascript
 arr.map(callback, [thisArg])
 ```
 >위 함수의 파라미터는 밑에와 같습니다.
@@ -31,7 +31,7 @@ arr.map(callback, [thisArg])
   - array: 현재 처리하고 있는 원본 배열
  - thisArg(선택 항목): callback 함수 내부에서 사용할 this 레퍼런스
 
-```
+```javascript
 var number = [1,2,3,4,5];
 
 var processed = numbers.map(function(num){
@@ -43,7 +43,7 @@ console.log(processed);
 >이렇게 map함수를 이용해 배열 [1,2,3,4,5]의 각 요소를 제곱해서 새로운 배열을 생성했습니다.  
 >결과로는 ``` [1,4,9,16,25] ``` 가 뜬다  
 >위 코드를 ES6문법으로 바꿔쓰면
-```
+```javascript
 const numbers = [1,2,3,4,5]
 const result = numbers.map(num => num*num);
 console.log(result);
@@ -51,7 +51,7 @@ console.log(result);
 >위에서 var를 const로 바꾸고 function부분을 화살표 함수를 사용하면 된다
 
 ## 데이터 배열을 컴포넌트 배열로 변환하기
-```
+```javascript
 import React from "react";
 
 const IterationSample = () => {
@@ -83,7 +83,7 @@ const articleList = articles.map(article => (
 ));
 ```
 >하지만 앞선 예제에선 이런 고유번호가 없기에 map 함수에 전달되는 콜백 함수의 인수인 index값을 사용하면 됩니다
-```
+```javascript
 import React from "react";
 
 const IterationSample = () => {
@@ -105,13 +105,13 @@ const biggerThanThree = numbers.filter(number => number >3);
 ```
 >을 하면 결과로는 ```[4,5,6]```이 나오게 됩니다
 >또한 원하는 원소만 제외시킬 수도 있습니다.
-```
+```javascript
 const numbers = [1,2,3,4,5,6];
 const withoutThree = numbers.filter(number => number !== 3);
 ```
 >이렇게 하면 3을 제외하고 ```[1,2,4,5,6]```만 남게 됩니다.
 
-```
+```javascript
 import React, { useState } from "react";
 
 const IterationSample = () => {
