@@ -106,3 +106,22 @@ componentDidUpdate(prevProps, prevState, snapshot) { ... }
 1. 이 메서드는 리렌더링을 완료한 후 실행합니다(업데이트가 끝난 직후이므로, DOM 관련 처리를 해도 무방합니다.)
 2. 여기선 prevProps 또는 prevState를 사용하여 컴포넌트가 이전에 가졌던 데이터에 접근할 수 있습니다.
 3. getSnapshotBeforeUpdate에서 반환한 값이 있다면 여기서 snapshot 값을 전달받을 수 있습니다.
+
+### componentWillUnmount 메서드
+componentWillUnmount() { ... }
+1. 이 메서드는 컴포넌트를 DOM에서 제거할 때 실행합니다
+2. componentDidMount에서 등록한 이벤트,타이머,직접 생성한 DOM이 있다면 제거 작업을 해야 합니다.
+
+### componentDidCatch 메서드
+1. componentDidCatch 메서드는 리엑트 v16에서 새롭게 도입되었으며 컴포넌트 렌더링 도중에 에러가 발생했을 때 애플리케이션이 먹통이 되지 않고 오류 UI를 보여 줄 수 있게 해 줍니다
+```javascript
+componentDidCatch(error, info) {
+  this.setState({
+    error: true
+  });
+  console.log({ error, info});
+}
+```
+>여기서 error 파라미터에 어떤 에러가 발생했는지 알려 주며, info 파라미터는 어디에 있는 코드에서 오류가 발생했는지에 대한 정보를 줍니다.  
+>앞의 코드에서는 그저 console.log만 했지만 나중에 실제로 사용할 때 오류가 발생하면 서버 API를 호출하여 따로 수집할 수도 있습니다.  
+
