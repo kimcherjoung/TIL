@@ -88,4 +88,4 @@ const Average = () => {
 
 export default Average;
 ```
->이렇게 useMemo를 이용해 list 배열의 내용이 바뀔 때만 getAverage 함수가 호출이 
+>이렇게 useMemo를 이용해 list 배열의 내용이 바뀔 때만 getAverage 함수가 호출이 됩니다
