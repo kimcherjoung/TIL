@@ -14,7 +14,7 @@
  - 서드 파티 DOM 라이브러리를 React와 같이 사용할 때
 
 >예를 들어 일반 순수 자바스크립트와 jQuery로 만든 웹 사이트에서 input을 검증할 때는 다음과 같이 특정 id를 가진 input에 클래스를 설정해 줍니다.
-````html
+```javascript
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,3 +49,63 @@
 </html>
 ```
 >하지만 리엑트에서 이런 작업은 굳이 DOM에 접근하지 않아도 state로 구현할 수 있습니다
+```javascript
+import { Component } from "react";
+import "./ValidationSample.css";
+
+class ValidationSample extends Component {
+  state = {
+    password: "",
+    clicked: false,
+    validated: false,
+  };
+
+  handleChange = (e) => {
+    this.setState({
+      password: e.target.value,
+    });
+  };
+
+  handleButtonClick = () => {
+    this.setState({
+      clicked: true,
+      validated: this.state.password === "0000",
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <input
+          type="password"
+          value={this.state.password}
+          onChange={this.handleChange}
+          className={
+            this.state.clicked
+              ? this.state.validated
+                ? "success"
+                : "failure"
+              : ""
+          }
+        ></input>
+        <button onClick={this.handleButtonClick}>검증하기</button>
+      </div>
+    );
+  }
+}
+
+export default ValidationSample;
+```
+
+>이렇게 state로 구현할 수 있지만 앞서 말했듯이 가끔 state만으로 해결할 수 없는 기능이 있어서 ref를 사용한다
+
+## ref 사용
+>이제 ref를 사용해볼건데 ref를 사용하는 방법은 두 가지입니다
+
+## 콜백 함수를 통한 ref 설정
+>ref를 만드는 가장 기본적인 방법은 콜백 함수를 사용하는 것입니다  
+>ref를 달고자 하는 요소에 ref라는 콜백 함수를 props로 전달해 주면 됩니다  
+```javascript
+<input ref={(ref) => {this.input=ref}} />
+```
+>위의 콜백 함수는 ref값을 파라미터로 전달받고 함수 내부에서 파라미터로 받은 ref를 컴포넌트의 멤버 변수로 설정해 줍니다
