@@ -108,4 +108,65 @@ export default ValidationSample;
 ```javascript
 <input ref={(ref) => {this.input=ref}} />
 ```
->위의 콜백 함수는 ref값을 파라미터로 전달받고 함수 내부에서 파라미터로 받은 ref를 컴포넌트의 멤버 변수로 설정해 줍니다
+>위의 콜백 함수는 ref값을 파라미터로 전달받고 함수 내부에서 파라미터로 받은 ref를 컴포넌트의 멤버 변수로 설정해 줍니다  
+>이렇게 하면 앞으로 this.input은 input 요소의 DOM을 가리키게된다.  
+>ref의 이름은 원하는 것으로 자유롭게 지정할수가 있다. DOM 타입과 관계없이 this.superman = ref처럼 맘대로 지정할 수 있다
+
+## createRef를 통한 ref 설정
+>ref를 만드는 또 다른 ㄹ방법은 리엑트에 내장되어 있는 createRef란 함수를 사용하는 것입니다  
+>이 함수를 사용하면 더 적은 코드로 쉽게 사용할 수 있게 디고 , 이 기능은 리엑트 v16.3부터 도입되었으며 이전 버전에선 작동하지 않습니다
+```javascript
+import { Component } from 'react';
+
+class RefSample extends Component {
+ input = React.createRef();
+ 
+ handleFocus = () => {
+  this.input.current.focus();
+ }
+ 
+ render() {
+  return (
+   <div>
+    <input ref={this.input}>
+   <div>
+  );
+ }
+}
+
+export default RefSample;
+```
+>createRef를 사용하여 ref를 만들려면 우선 컴포넌트 내부에서 멤버 변수로 React.createRef()를 담아 주어야 합니다  
+>그리고 해당 멤버 변수를 ref를 달고자 하는 요소에 ref props로 넣어 주면 ref 설정이 완료됩니다  
+>설정한 뒤 나중에 ref를 설정해 준 DOM에 접근하려면 this.input.current를 조회하면 됩니다(콜백 함수와 다른 점은 뒷부분에 .current를 넣어 주어야 한드는 것이다)
+
+## 커서 input으로 넘어가기 예제
+>input에 커서가 있다가도 버튼을 누르면 input의 커서가 사라지므로 다시 input에 포커스가 다시 input 쪽으로 자동으로 넘어가도록 코드를 작성해 보겠습니다  
+>콜백 함수를 이용해 ValidationSample 컴포넌트에도 ref를 달아보겠습니다
+```javascript
+        <input
+          ref={(ref) => (this.input = ref)}
+          (...)
+         />
+```
+>콜백 함수를 이용해 여기에도  ref를 달아보았습니다
+```javascript
+   handleButtonClick = () => {
+    this.setState({
+      clicked: true,
+      validated: this.state.password === "0000",
+    });
+    this.input.focus();
+ };
+ ```
+>this.input이 input을 가리키고 있으니, 일방 DOM을 다루듯이 코드를 작성하면 됩니다
+>이렇게 하면 input요소에 ref를 달아 직접 input을 가리키게 해서 focus를 주게 만들었습니다
+ 
+## 컴포넌트에 ref 달기
+>리엑트에선 컴포넌트에도 ref를 달 수 있습니다  
+>이 방법은 주로 컴포넌트 내주에 있는 DOM을 컴포넌트 외부에서 사용할 때 씁니다. 컴포넌트에 ref를 다는 방법은 DOM에 ref를 다는 방법과 같습니다.
+ 
+## 사용법
+```javascript
+<>
+```
