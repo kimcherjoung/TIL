@@ -168,5 +168,92 @@ export default RefSample;
  
 ## 사용법
 ```javascript
-<>
+<MyComponent
+   ref={(ref) => {this.myComponent}}
+/>
+```
+>이렇게 하면 MyComponent 내부의 메서드 및 멤버 변수에도 접근할 수 있습니다(예: myComponent,handleClick,myComponent,input등)
+>이번엔 스크롤 박스가 있는 컴포넌트를 하나 만들고, 스크롤바를 아래로 내리는 작업을 부모 컴포넌트에서 실행해 보겠습니다.
+```javascript
+import { Component } from "react";
+
+class ScrollBox extends Component {
+  render() {
+    const style = {
+      border: "1px solid black",
+      height: "300px",
+      width: "300px",
+      overflow: "auto",
+      position: "relative",
+    };
+
+    const innerStyle = {
+      width: "100%",
+      height: "650px",
+      background: "linear-gradient(white, black)",
+    };
+
+    return (
+      <div
+        style={style}
+        ref={(ref) => {
+          this.box = ref;
+        }}
+      >
+        <div style={innerStyle}></div>
+      </div>
+    );
+  }
+}
+
+export default ScrollBox;
+```
+>JSX의 인라인 스타일링을 이용해서 스크롤바를 만들었고, 최상위 DOM에 ref를 달아 주었습니다.  
+>App에 렌더링하면 스크롤바가 제대로 생성될 것 입니다   
+>그럼 이제 컴포넌트에 스크롤바를 맨 아래쪽으로 내리는 메서드를 만들겟습니다. 자바스크립트로 스크롤바를 내릴때는 DOM노드가 가진 다음값들을 이용합니다
+- scrollTop: 세로 스크롤바 위치(0~350)
+- scrollHeight: 스크롤이 있는 박스 안의 div 높이(650)
+- clientHeight: 스크롤이 있는 박스의 높이(300)
+>스크롤바를 맨 아래쪽으로 내리려면 scrollHeight에서 clientHeight를 빼면 됩니다
+```javascript
+import { Component } from "react";
+
+class ScrollBox extends Component {
+
+  scrollToBottom = () => {
+    const {scrollHeight, clientHeight} = this.box;
+    /* 앞 코드에는 비구조화 할당 문법을 사용했습니다
+       다음 코드와 같은 의미입니다.
+       const scrollHeight = this.box.scrollHeight
+       const clientHeight = this.box.cliengHeight*/ 
+    this.box.scrollTop = scrollHeight - clientHeight;
+  }
+  
+  render(){
+     (...)
+  }
+  
+export default ScrollBox;
+```
+>이렇게 만든 메서드는 부모 컴포넌트인 App 컴포넌트에서 ScrollBox에 ref를 달면 사용할 수 있습니다  
+  
+>그럼 App 컴포넌트에서 ScrollBox에 ref를 달고 버튼을 만들면 ScrollBox 컴포넌트의 scrollToBottom 메서드를 실행하도록 코드를 작성하겠습니다
+```javascript
+import { Component } from "react";
+import ScrollBox from "./ScrollBox";
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <ScrollBox ref={(ref) => (this.scrollBox = ref)}></ScrollBox>
+        <button onClick={() => this.scrollBox.scrollToBottom()}>
+          맨 밑으로
+        </button>
+      </div>
+    );
+  }
+}
+
+export default App;
 ```
