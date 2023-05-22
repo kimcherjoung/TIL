@@ -1,0 +1,97 @@
+#Style
+>React에서  css를 사용하는 방법은 여러가지 가 있습니다  
+>예를 들면 평범하게 css파일을 연결하는 방법과 그냥 써버리는 인라인 스타일링을 사용할수 있습니다. 하지만 React에선 더 다양한 css을 쓸 수 있게 해줍니다
+
+## SASS(SCSS) 사용하기
+>Sass(Scss)는 css 전처리기로 복잡한 작업을 쉽게 할 수 있도록 해 주고, 스타일 코드의 재활용성을 높여 줄 뿐만 아니라 코드의 가독성을 높여줘서 유지 보수를 쉽게 해줍니다  
+>Sass에서는 두 가지 확장자 .scss와 .sass를 지원합니다. 이 두 개는 문법에서 약간의 차이가 있습니다  
+sass
+```scss
+$font-stact: Helvetica, sans-serif
+$primary-color: #333
+
+body
+  font: 100% $font-stact
+  color: primary-color
+```
+scss
+```scss
+$font-stact: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stact;
+  color: primary-color;
+ }
+```
+>주요 차이점을 살펴보자면 .sass확장자는 중괄호({}) 와 세미클론(;)을 사용하지 않습니다  
+>그래서 보통을 .scss를 자주 사용합니다
+### Sass 추가하기
+>sass를 사용하기 위해서는 
+```yarn
+$ yarn add sass
+```
+>를 사용해서 Sass를 추가해주어야 한다
+## Sass 사용해보기
+```
+//변수 사용하기
+$red: #fa5252;
+$orange: #fd7e14;
+$yellow: #fcc419;
+$green: #40c057;
+$blue: #339af0;
+$indigo: #5c7cfa;
+$violet: #7950f2;
+//믹스인 만들기(재사용되는 스타일 블록을 함수처럼 사용할 수 있음)
+@mixin square($size) {
+    $calculated: 32px * $size;
+    width: $calculated;
+    height: $calculated;
+}
+
+.SassComponent {
+    display: flex;
+    .box { // 일반 CSS에서는 .SassComponent . box와 마찬가지다
+        background: red;
+        cursor: pointer;
+        transition: all 0.3 ease-in;
+        &.red{
+            // .red 클래스가 .box와 함께 사용되었을 때
+            background: $red;
+            @include square(1);
+        }
+        &.orange {
+            background: $orange;
+            @include square(2);
+        }
+        &.yellow {
+            background: $yellow;
+            @include square(3);
+        }
+        &.green {
+            background: $green;
+            @include square(4);
+        }
+        &.blue {
+            background: $blue;
+            @include square(5);
+        }
+        &.indigo {
+            background: $indigo;
+            @include square(6);
+        }
+        &.violet {
+            background: $violet;
+            @include square(7);
+        }
+        &:hover{
+            // .box에 마우스를 올렸을 때
+            background: black;
+        }
+    }
+}
+```
+>위에선 $를 이용해 변수를 설정해 줄수 있고  
+>@mixin과 @include를 이용하면 함수와도 같이 사용할 수 있게 된다  
+### utils 함수 분리하기
+>여러 파일에서 사용될 수 있는 Sass 변수 및 믹스인은 다른 파일로 따로 분리하여 작성한 뒤 필요한 곳에서 쉽게 불러와 사용할 수 있습니다  
