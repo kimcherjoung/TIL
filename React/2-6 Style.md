@@ -33,7 +33,7 @@ $ yarn add sass
 ```
 >를 사용해서 Sass를 추가해주어야 한다
 ## Sass 사용해보기
-```
+```scss
 //변수 사용하기
 $red: #fa5252;
 $orange: #fd7e14;
@@ -91,7 +91,125 @@ $violet: #7950f2;
     }
 }
 ```
+```javascript
+import React from "react";
+import "./SassComponent.scss";
+
+const SassComponent = () => {
+  return (
+    <div className="SassComponent">
+      <div className="box red"></div>
+      <div className="box orange"></div>
+      <div className="box yellow"></div>
+      <div className="box green"></div>
+      <div className="box blue"></div>
+      <div className="box indigo"></div>
+      <div className="box violet"></div>
+    </div>
+  );
+};
+
+export default SassComponent;
+```
 >위에선 $를 이용해 변수를 설정해 줄수 있고  
 >@mixin과 @include를 이용하면 함수와도 같이 사용할 수 있게 된다  
 ### utils 함수 분리하기
 >여러 파일에서 사용될 수 있는 Sass 변수 및 믹스인은 다른 파일로 따로 분리하여 작성한 뒤 필요한 곳에서 쉽게 불러와 사용할 수 있습니다  
+```scss
+//변수 사용하기
+$red: #fa5252;
+$orange: #fd7e14;
+$yellow: #fcc419;
+$green: #40c057;
+$blue: #339af0;
+$indigo: #5c7cfa;
+$violet: #7950f2;
+//믹스인 만들기(재사용되는 스타일 블록을 함수처럼 사용할 수 있음)
+@mixin square($size) {
+    $calculated: 32px * $size;
+    width: $calculated;
+    height: $calculated;
+}
+```
+```scss
+@import './styles/utils';
+
+.SassComponent {
+    display: flex;
+    .box { // 일반 CSS에서는 .SassComponent . box와 마찬가지다
+        background: red;
+        cursor: pointer;
+        transition: all 0.3 ease-in;
+        &.red{
+            // .red 클래스가 .box와 함께 사용되었을 때
+            background: $red;
+            @include square(1);
+        }
+        &.orange {
+            background: $orange;
+            @include square(2);
+        }
+        &.yellow {
+            background: $yellow;
+            @include square(3);
+        }
+        &.green {
+            background: $green;
+            @include square(4);
+        }
+        &.blue {
+            background: $blue;
+            @include square(5);
+        }
+        &.indigo {
+            background: $indigo;
+            @include square(6);
+        }
+        &.violet {
+            background: $violet;
+            @include square(7);
+        }
+        &:hover{
+            // .box에 마우스르 ㄹ올렸을 때
+            background: black;
+        }
+    }
+}
+```
+>미리 scss를 짜놓고 @import를 이용해 불러와 사용할 수 있습니다
+## CSS Module
+>Css Module은 CSS를 불러와서 사용할 때 클래스 이름을 고유한 값, 즉 [파일이름] _ [클래스 이름] _ [해시값] 형태로 자동으로 만들어서 컴포넌트 스타일 클래스 이름이 중첩되는 현상을 방지해 주는 기술입니다  
+>원래는 설정을 별도로 해줘야 하지만 지금은 .module.css 확장자로 파일을 저장하기만 하면 CSS Module이 적용됩니다
+```css
+/*자동으로 고유해질 것이므로 흔히 사용되는 단어를 클래스 이름으로 마음대로 사용 가능*/
+
+.wrapper {
+    background: black;
+    padding: 1rem;
+    columns: white;
+    font-size: 2rem;
+}
+
+/*클로벌 CSS를 작성하고 싶다면*/
+
+:global .something {
+    font-weight: 800;
+    color: aqua;
+}
+```
+```javascript
+import React from "react";
+import styles from "./CSSModule.module.css";
+
+function CSSModule() {
+  return (
+    <div className={styles.wrapper}>
+      안녕하세요, 저는 <span className="something">CSS Module!</span>
+    </div>
+  );
+}
+
+export default CSSModule;
+```
+>해당 클래스느 ㄴ우리가 방금 만든 스타일을 직접 불러온 컴포넌트 내부에서만 작동하기에 흔한 이름으로 해도 상관없습니다  
+>만약 특정 클래스가 웹 페이지에서 전역적으로 사용되는 경우라면 :global을 앞에 입력하여 글로벌CSS임을 명시해 줄 수 
