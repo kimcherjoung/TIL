@@ -214,3 +214,25 @@ export default CSSModule;
 >해당 클래스는 우리가 방금 만든 스타일을 직접 불러온 컴포넌트 내부에서만 작동하기에 흔한 이름으로 해도 상관없습니다  
 >만약 특정 클래스가 웹 페이지에서 전역적으로 사용되는 경우라면 :global을 앞에 입력하여 글로벌CSS임을 명시해 줄 수 있습니다  
 >CSS Module이 적욛도니 스타일 파일을 불러오면 객체를 하나 전달받게 되는데 CSS Module에서 사용한 클래스 이름과 해당 이름을 고유화한 값이 키-값으로 들어 있어서, console.log(styles)를 한다면 ```{wrapper: "CSSModule_wrapper_15bdQ"}```이렇게 결과가 나옵니다
+  
+>한번에 CSS Module 클래스를 여러개 사용하면 템플릿 리터럴 문법을 사용할수 있습니다
+```javascript
+import React from "react";
+import styles from "./CSSModule.module.css";
+
+function CSSModule() {
+  return (
+    <div className={`${styles.wrapper} ${styles.inverted}`}>
+      안녕하세요, 저는 <span className="something">CSS Module!</span>
+    </div>
+  );
+}
+
+export default CSSModule;
+```
+>이렇게 하면 동시에 여러 클래스를 사용할 수 있게 됩니다
+>또한 템플릿 리터럴 문법을 사용하기 싫다 하면
+```javascript
+className={[styles.wrapper, styles.inverted].join('')}
+```
+>이렇게 짜면 됩니다
